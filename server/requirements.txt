@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pillow
+edge-tts
+langchain-huggingface
+langchain-chroma
+chromadb
+transformers
+torch
+llama-cpp-python
+sentence-transformers

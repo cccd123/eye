@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   故宮典藏資料檢索-Opendata開放資料
+  </title>
+  <!-- Favicon -->
+  <link href="/opendata/Content/images/favicon.ico" rel="shortcut icon"/>
+  <!-- Baice -->
+  <script src="/opendata/bundles/jquery?v=N2YlHnRI7it2_JoqUZTYWxPtx-s61zIGkk78Q0eabPM1">
+  </script>
+  <script src="/opendata/bundles/bootstrap?v=BkxlANSUkQErsU2cUtLEhgg-C0aVQKY33-6RPdrb4ok1">
+  </script>
+  <link href="/opendata/stlye/css?v=qaYWSOyZOo4ObpX0rvH1xoiMz_IBW1tuoYiAXkowZqo1" rel="stylesheet"/>
+  <!-- Style -->
+  <script src="/opendata/Scripts/basic/master.js?v=2025012313" type="text/javascript">
+  </script>
+  <link href="/opendata/Content/css/opendata.css?v=2025012313" rel="stylesheet"/>
+  <!--GA4-->
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-JY17M0QTGP">
+  </script>
+  <script>
+   window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-9GKT9XGFDZ');
+  </script>
+  <meta content="故宮典藏資料檢索系統-Opendata開放資料" name="description"/>
+  <meta content="故宮典藏資料檢索系統" property="og:title"/>
+  <meta content="Opendata開放資料" property="og:description"/>
+  <meta content="https://digitalarchive.npm.gov.tw/opendata/Content/images/OpenData_share.jpg" property="og:image"/>
+ </head>
+ <body>
+  <div class="loading" style="display: none">
+   <div class="loader-inner ball-pulse-sync">
+    <span class="mr-10">
+     Loading
+    </span>
+    <div>
+    </div>
+    <div>
+    </div>
+    <div>
+    </div>
+   </div>
+  </div>
+  <!-- ↓ 主體 ↓ -->
+  <div id="wrapper">
+   <!-- 無障礙導覽按鈕 -->
+   <div class="fastFocus">
+    <a class="fastFocus" href="#C" tabindex="1" title="移到主要內容區塊">
+     跳到主要內容區塊
+    </a>
+    <script>
+     var $a = $(".fastFocus a");
+                $a.on("click", function (evt) {
+                    var $href = $($(this).attr("href")),
+                        $target = $href.find("a").eq(0).get(0);
+                    setTimeout(function () {
+                        try {
+                            $target.focus();
+                        } catch (e) { }
+                    }, 0);
+                });
+    </script>
+   </div>
+   <!-- ↓ 選單區 ↓ -->
+   <header id="header">
+    <!-- LOGO -->
+    <h1 id="logo">
+     <a href="/opendata/" title="Opendata開放資料：回首頁">
+      <img alt="回首頁" src="/opendata/Content/images/LOGO3.png"/>
+     </a>
+    </h1>
+    <!-- 行動裝置選單按鈕 -->
+    <button aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarCollapse" data-bs-toggle="collapse" type="button">
+     <span class="material-icons-outlined">
+     </span>
+    </button>
+    <!-- 主選單 -->
+    <nav class="navbar-collapse collapse" id="navbarCollapse">
+     <a accesskey="U" class="accesskey" href="#U" id="U" name="U" title="上方選單區塊，此區塊呈現功能選單連結">
+      :::
+     </a>
+     <ul class="nav">
+      <li class="nav-item">
+       <a class="nav-link active" href="/opendata/" title="移至Opendata開放資料[中文版]">
+        <span>
+         中文
+        </span>
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="/opendata/Pub/EngVersion" title="English version">
+        <span>
+         English
+        </span>
+       </a>
+      </li>
+     </ul>
+    </nav>
+   </header>
+   <!-- 路徑 -->
+   <div class="breadcrumb-body">
+    <div class="title">
+     <span>
+      Opendata開放資料
+     </span>
+    </div>
+    <nav aria-label="breadcrumb">
+     <a accesskey="C" class="accesskey" href="#C" id="C" name="C" title="中央內容區塊，此區塊呈現各網頁的資訊內容">
+      :::
+     </a>
+     <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+       <a href="/opendata/" title="Opendata開放資料">
+        Opendata開放資料
+       </a>
+      </li>
+     </ol>
+    </nav>
+   </div>
+   <!-- ↓ 內容區 ↓ -->
+   <main class="font-resize" id="main">
+    <div class="opendata">
+     <div class="opendata-row">
+      <label class="L" for="rblYear">
+       朝代
+      </label>
+      <div class="R" id="rblYear">
+       <div class="filter-checkbox">
+        <input checked="checked" id="rblYear_0" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value=""/>
+        <label for="rblYear_0">
+         全部
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_1" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="-7000~-2000~新石器時代"/>
+        <label for="rblYear_1">
+         新石器時代
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_2" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="-2600~-2000~新石器時代晚期"/>
+        <label for="rblYear_2">
+         新石器時代晚期
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_3" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="-1600~-1046~商"/>
+        <label for="rblYear_3">
+         商
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_4" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="-1100~-800~西周"/>
+        <label for="rblYear_4">
+         西周
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_5" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="-800~-500~春秋"/>
+        <label for="rblYear_5">
+         春秋
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_6" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="-500~-300~戰國"/>
+        <label for="rblYear_6">
+         戰國
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_7" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="-221~-207~秦"/>
+        <label for="rblYear_7">
+         秦
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_8" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="-206~8~西漢"/>
+        <label for="rblYear_8">
+         西漢
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_9" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="9~23~新莽"/>
+        <label for="rblYear_9">
+         新莽
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_10" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="25~220~東漢"/>
+        <label for="rblYear_10">
+         東漢
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_11" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="220~589~魏晉南北朝"/>
+        <label for="rblYear_11">
+         魏晉南北朝
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_12" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="581~618~隋"/>
+        <label for="rblYear_12">
+         隋
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_13" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="618~907~唐"/>
+        <label for="rblYear_13">
+         唐
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_14" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="907~960~五代"/>
+        <label for="rblYear_14">
+         五代
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_15" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="907~1125~遼"/>
+        <label for="rblYear_15">
+         遼
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_16" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="960~1279~宋"/>
+        <label for="rblYear_16">
+         宋
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_17" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="1115~1234~金"/>
+        <label for="rblYear_17">
+         金
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_18" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="1271~1368~元"/>
+        <label for="rblYear_18">
+         元
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_19" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="1368~1644~明"/>
+        <label for="rblYear_19">
+         明
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_20" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="1644~1911~清"/>
+        <label for="rblYear_20">
+         清
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_21" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="1911~9999~民國"/>
+        <label for="rblYear_21">
+         民國
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblYear_22" name="rblYear" onclick="InitCategoryRadio(this.value)" type="radio" value="0~0~時代不詳"/>
+        <label for="rblYear_22">
+         時代不詳
+        </label>
+       </div>
+      </div>
+     </div>
+     <div class="opendata-row">
+      <label class="L" for="rblType">
+       分類
+      </label>
+      <div class="R" id="rblType">
+       <div class="filter-checkbox">
+        <input id="rblType_0" name="rblType" type="radio" value=""/>
+        <label for="rblType_0">
+         全部
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_1" name="rblType" type="radio" value="銅器"/>
+        <label for="rblType_1">
+         <span>
+          銅器
+         </span>
+         <span>
+          (6236)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_2" name="rblType" type="radio" value="陶瓷器"/>
+        <label for="rblType_2">
+         <span>
+          陶瓷器
+         </span>
+         <span>
+          (24201)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_3" name="rblType" type="radio" value="玉器"/>
+        <label for="rblType_3">
+         <span>
+          玉器
+         </span>
+         <span>
+          (12327)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_4" name="rblType" type="radio" value="琺瑯器"/>
+        <label for="rblType_4">
+         <span>
+          琺瑯器
+         </span>
+         <span>
+          (2521)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input checked="checked" id="rblType_5" name="rblType" type="radio" value="雕刻"/>
+        <label for="rblType_5">
+         <span>
+          雕刻
+         </span>
+         <span>
+          (667)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_6" name="rblType" type="radio" value="漆器"/>
+        <label for="rblType_6">
+         <span>
+          漆器
+         </span>
+         <span>
+          (763)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_7" name="rblType" type="radio" value="錢幣"/>
+        <label for="rblType_7">
+         <span>
+          錢幣
+         </span>
+         <span>
+          (6953)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_8" name="rblType" type="radio" value="文具"/>
+        <label for="rblType_8">
+         <span>
+          文具
+         </span>
+         <span>
+          (2385)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_9" name="rblType" type="radio" value="雜項"/>
+        <label for="rblType_9">
+         <span>
+          雜項
+         </span>
+         <span>
+          (11974)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_10" name="rblType" type="radio" value="織品"/>
+        <label for="rblType_10">
+         <span>
+          織品
+         </span>
+         <span>
+          (1612)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_11" name="rblType" type="radio" value="絲繡"/>
+        <label for="rblType_11">
+         <span>
+          絲繡
+         </span>
+         <span>
+          (438)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_12" name="rblType" type="radio" value="繪畫"/>
+        <label for="rblType_12">
+         <span>
+          繪畫
+         </span>
+         <span>
+          (16688)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_13" name="rblType" type="radio" value="法書"/>
+        <label for="rblType_13">
+         <span>
+          法書
+         </span>
+         <span>
+          (5753)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_14" name="rblType" type="radio" value="法帖"/>
+        <label for="rblType_14">
+         <span>
+          法帖
+         </span>
+         <span>
+          (7136)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_15" name="rblType" type="radio" value="拓片"/>
+        <label for="rblType_15">
+         <span>
+          拓片
+         </span>
+         <span>
+          (1193)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_16" name="rblType" type="radio" value="成扇"/>
+        <label for="rblType_16">
+         <span>
+          成扇
+         </span>
+         <span>
+          (2545)
+         </span>
+        </label>
+       </div>
+       <div class="filter-checkbox">
+        <input id="rblType_17" name="rblType" type="radio" value="其他"/>
+        <label for="rblType_17">
+         <span>
+          其他
+         </span>
+         <span>
+          (5227)
+         </span>
+        </label>
+       </div>
+      </div>
+     </div>
+     <div class="opendata-row">
+      <label class="L" for="txtQuery">
+       關鍵字
+      </label>
+      <div class="R">
+       <input accesskey="S" class="form-control form-3 form-lg-12" id="txtQuery" name="txtQuery" placeholder="請輸入關鍵字" type="text"/>
+      </div>
+     </div>
+     <div class="opendata-bottom">
+      <input alternatetext="查詢" class="btn btn-project" id="ibsubmit" name="ibsubmit" onclick="ClickSearch()" title="查詢" type="submit" value="查詢"/>
+      <input alternatetext="清除" class="btn btn-default" id="ibsubmit" name="ibsubmit" onclick="CleanAll()" title="清除" type="submit" value="清除"/>
+     </div>
+    </div>
+    <div id="searchResult">
+     <div class="search-condition" id="conditonTag">
+     </div>
+     <div id="result">
+      <div class="card-mode-content">
+       <div class="result-card">
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('1828', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=332687&amp;randomCode=1324249853"/>
+          </div>
+          <div class="card-title">
+           竹根雕牧童臥牛
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/1828?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('62307', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=332696&amp;randomCode=21341150177"/>
+          </div>
+          <div class="card-title">
+           竹黃臥瓜式盒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/62307?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('62308', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=332705&amp;randomCode=19167690415"/>
+          </div>
+          <div class="card-title">
+           沉香木雕山水筆筒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/62308?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('62309', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=332711&amp;randomCode=30244379321"/>
+          </div>
+          <div class="card-title">
+           竹雕梅花綬帶
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/62309?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('62310', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=332717&amp;randomCode=59085047433"/>
+          </div>
+          <div class="card-title">
+           竹雕出狩圖筆筒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/62310?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('62311', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=332722&amp;randomCode=49843210099"/>
+          </div>
+          <div class="card-title">
+           竹雕仕女庭園圖筆筒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/62311?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('1513', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=649677&amp;randomCode=2139390310"/>
+          </div>
+          <div class="card-title">
+           竹雕仕女圖筆筒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/1513?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('2925', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=1182430&amp;randomCode=213070490"/>
+          </div>
+          <div class="card-title">
+           雕竹人物香筒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/2925?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('62312', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=332731&amp;randomCode=1281368029"/>
+          </div>
+          <div class="card-title">
+           木根筆筒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/62312?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('62313', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=351641&amp;randomCode=1991370857"/>
+          </div>
+          <div class="card-title">
+           竹雕文字筆筒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/62313?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('62314', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=332738&amp;randomCode=85801927800"/>
+          </div>
+          <div class="card-title">
+           竹雕人物圖筆筒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/62314?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('62315', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=332743&amp;randomCode=503749168"/>
+          </div>
+          <div class="card-title">
+           黃楊木雕山水筆筒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/62315?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('2412', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=364097&amp;randomCode=1518612540"/>
+          </div>
+          <div class="card-title">
+           竹雕窺簡圖筆筒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/2412?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('62316', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=332747&amp;randomCode=53021913929"/>
+          </div>
+          <div class="card-title">
+           黃楊木雕松竹梅筆筒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/62316?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+        <div class="card-item">
+         <a class="card" href="" onclick="Detail('62317', 'U')">
+          <div class="card-img">
+           <img alt="" src="/opendata/Image/GetImage?imageId=332750&amp;randomCode=90175099360"/>
+          </div>
+          <div class="card-title">
+           竹雕小圓盒
+          </div>
+         </a>
+         <a class="openblank" href="/opendata/Pub/Detail/62317?dep=U&amp;mode=full" rel="noopener noreferrer" target="_blank">
+          <span class="material-icons-outlined">
+           open_in_new
+          </span>
+         </a>
+        </div>
+       </div>
+      </div>
+      <nav class="page">
+       <div class="page-size">
+        <div class="page-text">
+         <span>
+          共
+         </span>
+         <span>
+          667
+         </span>
+         <span>
+          筆
+         </span>
+        </div>
+        <select class="form-control" data-val="true" data-val-number="欄位 PageSize 必須是數字。" data-val-required="PageSize 欄位是必要項。" id="collection-per-page" name="PageInfo.PageSize" onchange="ChangePageSize(this)" title="筆數">
+         <option selected="selected" value="15">
+          每頁15筆
+         </option>
+         <option value="30">
+          每頁30筆
+         </option>
+        </select>
+       </div>
+       <ul class="pagination">
+        <li class="page-item">
+         <a class="page-link" data-bs-placement="top" data-bs-toggle-second="tooltip" href="#" onclick="ChangePageIndex(1)" title="最前頁">
+          <span class="material-icons-outlined">
+           first_page
+          </span>
+         </a>
+        </li>
+        <li class="page-item">
+         <a class="page-link" data-bs-placement="top" data-bs-toggle-second="tooltip" href="#" onclick="ChangePageIndex(1)" title="上一頁">
+          <span class="material-icons-outlined">
+           navigate_before
+          </span>
+         </a>
+        </li>
+        <li class="page-item">
+         <a class="page-link" data-bs-placement="top" data-bs-toggle-second="tooltip" href="#" onclick="ChangePageIndex(2)" title="下一頁">
+          <span class="material-icons-outlined">
+           navigate_next
+          </span>
+         </a>
+        </li>
+        <li class="page-item">
+         <a class="page-link" data-bs-placement="top" data-bs-toggle-second="tooltip" href="#" onclick="ChangePageIndex(45)" title="最末頁">
+          <span class="material-icons-outlined">
+           last_page
+          </span>
+         </a>
+        </li>
+       </ul>
+       <div class="page-skip">
+        <select class="form-control" data-val="true" data-val-number="欄位 PageIndex 必須是數字。" data-val-required="PageIndex 欄位是必要項。" id="PageInfo_PageIndex" name="PageInfo.PageIndex" onchange="ChangePageIndex(this.value)" title="頁數">
+         <option selected="selected" value="1">
+          1
+         </option>
+         <option value="2">
+          2
+         </option>
+         <option value="3">
+          3
+         </option>
+         <option value="4">
+          4
+         </option>
+         <option value="5">
+          5
+         </option>
+         <option value="6">
+          6
+         </option>
+         <option value="7">
+          7
+         </option>
+         <option value="8">
+          8
+         </option>
+         <option value="9">
+          9
+         </option>
+         <option value="10">
+          10
+         </option>
+         <option value="11">
+          11
+         </option>
+         <option value="12">
+          12
+         </option>
+         <option value="13">
+          13
+         </option>
+         <option value="14">
+          14
+         </option>
+         <option value="15">
+          15
+         </option>
+         <option value="16">
+          16
+         </option>
+         <option value="17">
+          17
+         </option>
+         <option value="18">
+          18
+         </option>
+         <option value="19">
+          19
+         </option>
+         <option value="20">
+          20
+         </option>
+         <option value="21">
+          21
+         </option>
+         <option value="22">
+          22
+         </option>
+         <option value="23">
+          23
+         </option>
+         <option value="24">
+          24
+         </option>
+         <option value="25">
+          25
+         </option>
+         <option value="26">
+          26
+         </option>
+         <option value="27">
+          27
+         </option>
+         <option value="28">
+          28
+         </option>
+         <option value="29">
+          29
+         </option>
+         <option value="30">
+          30
+         </option>
+         <option value="31">
+          31
+         </option>
+         <option value="32">
+          32
+         </option>
+         <option value="33">
+          33
+         </option>
+         <option value="34">
+          34
+         </option>
+         <option value="35">
+          35
+         </option>
+         <option value="36">
+          36
+         </option>
+         <option value="37">
+          37
+         </option>
+         <option value="38">
+          38
+         </option>
+         <option value="39">
+          39
+         </option>
+         <option value="40">
+          40
+         </option>
+         <option value="41">
+          41
+         </option>
+         <option value="42">
+          42
+         </option>
+         <option value="43">
+          43
+         </option>
+         <option value="44">
+          44
+         </option>
+         <option value="45">
+          45
+         </option>
+        </select>
+        <div class="page-text">
+         <span>
+          /
+         </span>
+         <span id="total-pageCount">
+          45
+         </span>
+         <span>
+          頁
+         </span>
+        </div>
+       </div>
+      </nav>
+     </div>
+    </div>
+    <div id="detail">
+    </div>
+   </main>
+   <script>
+    $(document).ready(function () {
+        InitConditionTag();
+    });
+
+    function ChangePageIndex(_pageIndex) {
+        $(".loading").show();
+        var year = $("input[name='rblYear']:checked");
+        var type = $("input[name='rblType']:checked");
+        var typeId = $("input[name='rblType']:checked")[0].id;
+        var serializedModel = {"RegisterType":"雕刻","IndexYear":null,"WestBeginYear":0,"WestEndYear":0,"YearDisplay":null,"SearchContent":null,"RegisterTypeEng":null,"PageInfo":{"PageIndex":1,"PageSize":15,"PageCount":45}};
+        serializedModel.PageInfo.PageIndex = _pageIndex;
+        serializedModel.YearDisplay = year.val();
+        serializedModel.RegisterType = type.val();
+        var serializedModelString = JSON.stringify(serializedModel);
+        $.ajax({
+            url: '/opendata/Pub/Search',
+            type: 'POST',
+            contentType: 'application/json',
+            data: serializedModelString,
+            success: function (response) {
+                document.open();
+                document.write(response);
+                document.close();
+                InitCategoryRadioReSearch(year.val(), type.val());
+                $(".loading").hide();
+            },
+            error: function (xhr, status, error) {
+                $(".loading").hide();
+                // 處理錯誤
+            }
+        });
+    }
+
+    function ChangePageSize(_page) {
+        $(".loading").show();
+        var year = $("input[name='rblYear']:checked");
+        var type = $("input[name='rblType']:checked");
+        var typeId = $("input[name='rblType']:checked")[0].id;
+        var _pageSize = _page.value;
+        var serializedModel = {"RegisterType":"雕刻","IndexYear":null,"WestBeginYear":0,"WestEndYear":0,"YearDisplay":null,"SearchContent":null,"RegisterTypeEng":null,"PageInfo":{"PageIndex":1,"PageSize":15,"PageCount":45}};
+        serializedModel.PageInfo.PageSize = _pageSize;
+        serializedModel.YearDisplay = year.val();
+        serializedModel.RegisterType = type.val();
+        var serializedModelString = JSON.stringify(serializedModel);
+        $.ajax({
+            url: '/opendata/Pub/Search',
+            type: 'POST',
+            contentType: 'application/json',
+            data: serializedModelString,
+            success: function (response) {
+                document.open();
+                document.write(response);
+                document.close();
+                InitCategoryRadioReSearch(year.val(), type.val());
+                $(".loading").hide();
+            },
+            error: function (xhr, status, error) {
+                $(".loading").hide();
+                // 處理錯誤
+            }
+        });
+    }
+
+    function InitConditionTag() {
+        var serializedModel = {"RegisterType":"雕刻","IndexYear":null,"WestBeginYear":0,"WestEndYear":0,"YearDisplay":null,"SearchContent":null,"RegisterTypeEng":null,"PageInfo":{"PageIndex":1,"PageSize":15,"PageCount":45}};
+        var serializedModelString = JSON.stringify(serializedModel);
+        $.ajax({
+            type: "Post",
+            url: '/opendata/Pub/InitConditionTag',
+            contentType: 'application/json',
+            data: serializedModelString,
+            success: function (res) {
+                $("#conditonTag").html(res);
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            }
+        }).done(function () {
+        });
+    }
+
+    function ClickSearch() {
+        $(".loading").show();
+        var searchText = $("#txtQuery").val();
+        var year = $("input[name='rblYear']:checked");
+        var type = $("input[name='rblType']:checked");
+        var typeId = $("input[name='rblType']:checked")[0].id;
+        var serializedModel = {"RegisterType":"雕刻","IndexYear":null,"WestBeginYear":0,"WestEndYear":0,"YearDisplay":null,"SearchContent":null,"RegisterTypeEng":null,"PageInfo":{"PageIndex":1,"PageSize":15,"PageCount":45}};
+        serializedModel.SearchContent = searchText;
+        serializedModel.YearDisplay = year.val();
+        serializedModel.RegisterType = type.val();
+        serializedModel.PageInfo.PageIndex = 1;
+
+        var serializedModelString = JSON.stringify(serializedModel);
+        $.ajax({
+            url: '/opendata/Pub/Search',
+            type: 'POST',
+            contentType: 'application/json',
+            data: serializedModelString,
+            success: function (response) {
+                document.open();
+                document.write(response);
+                document.close();
+                InitCategoryRadioReSearch(year.val(), type.val());
+                $(".loading").hide();
+            },
+            error: function (xhr, status, error) {
+                $(".loading").hide();
+            }
+        });
+    }
+    $('.card').on('click', function (event) {
+        event.preventDefault();
+    });
+    $('#ReturnToPage').on('click', function (event) {
+        event.preventDefault();
+    });
+
+    $('.card').on('click', function (event) {
+        event.preventDefault();
+    });
+
+    function Detail(_id, _dep) {
+        $(".loading").show();
+        var lastScrollPos = $(window).scrollTop();
+        // 可考慮存到 sessionStorage 以便跨頁面使用
+        sessionStorage.setItem("lastScrollPos", lastScrollPos);
+        $.ajax({
+            type: "Post",
+            url: '/opendata/Pub/Detail',
+            data: {
+                "id": parseInt(_id),
+                "dep": _dep,
+            },
+            success: function (res) {
+                $("#searchResult").hide();
+
+                $("#detail").html("");
+                $("#detail").html(res);
+                $("#detail").show();
+                $(".loading").hide();
+                //InitConditionTagDetail();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $(".loading").hide();
+            }
+        }).done(function () {
+        });
+    }
+    function InitConditionTagDetail() {
+        $.ajax({
+            type: "Post",
+            url: '/opendata/Pub/InitConditionTagDetail',
+            success: function (res) {
+                $("#conditonTag").html(res);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            }
+        }).done(function () {
+        });
+    }
+
+    function CleanAll() {
+        $("#txtQuery").val("");
+        document.getElementById("rblYear_0").checked = true;
+        document.getElementById("rblType_0").checked = true;
+    }
+
+
+    function InitCategoryRadio(e) {
+        var type = $("input[name='rblType']:checked").val();
+        $.ajax({
+            type: "Post",
+            url: '/opendata/Pub/InitCategory',
+            data: {
+                "dynasty": e,
+                "category": type,
+            },
+            success: function (res) {
+                $("#rblType").html(res);
+
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+            }
+        }).done(function () {
+            //sessionStorage.removeItem("loading");
+        });
+    }
+
+    function InitCategoryRadioReSearch(e, type) {
+    $.ajax({
+        type: "Post",
+        url: '/opendata/Pub/InitCategory',
+        data: {
+            "dynasty": e,
+            "category": type,
+        },
+        success: function (res) {
+            $("#rblType").html(res);
+
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+        }
+    }).done(function () {
+        //sessionStorage.removeItem("loading");
+    });
+}
+
+    $('#txtQuery').keypress(function (event) {
+        if (event.which === 13) { // Enter key
+            event.preventDefault(); // 防止表單提交
+
+            ClickSearch();
+        }
+    });
+   </script>
+   <!-- ↓ 頁尾 ↓ -->
+   <footer id="footer">
+    <div class="footer-top">
+     <a accesskey="B" class="accesskey" href="#B" id="B" name="B" title="頁尾網站資訊，包含聯絡資訊、網站資料開放宣告、隱私權宣告、資訊安全政策等訊息">
+      :::
+     </a>
+     <a class="logo2" href="https://www.npm.gov.tw/" rel="noopener noreferrer" target="_blank">
+      <img alt="國立故宮博物院LOGO" src="/opendata/Content/images/LOGO7.svg"/>
+     </a>
+     <div class="footer-details1">
+      <a aria-expanded="false" class="" data-bs-toggle="dropdown" href="#" title="查看網站資料開放宣告">
+       網站資料開放宣告
+      </a>
+      <div class="dropdown-menu">
+       <div class="footer-head">
+        網站資料開放宣告
+       </div>
+       <p>
+        <span>
+         開放院藏書畫類、器物類、織品類文物低階圖像（100萬畫素）計約41萬幅， 以
+        </span>
+        <a class="primary" href="https://creativecommons.org/publicdomain/zero/1.0/deed.zh-hant" rel="noopener noreferrer" target="_blank">
+         「公眾領域貢獻宣告」（CC0）規範
+        </a>
+        <span>
+         ，不須註明出處。
+        </span>
+       </p>
+       <p>
+        <span>
+         開放院藏書畫類、器物類、織品類文物中階圖像（600萬畫素）計約41萬幅，中階圖檔及本網站文字均以
+        </span>
+        <a class="primary" href="https://creativecommons.org/licenses/by/4.0/deed.zh-hant" rel="noopener noreferrer" target="_blank">
+         「CC授權條款4.0」之CC BY 姓名標示規範
+        </a>
+        <span>
+         ，無須申請、不限用途、不用付費即可公開使用，惟需於適當位置呈現中文或英文姓名標示（選擇一種表示型式），○○○○○為使用圖檔之品名。
+        </span>
+       </p>
+       <p>
+        中文表示型式：
+       </p>
+       <p>
+        ○○○○○ 國立故宮博物院，臺北，CC BY 4.0 @ www.npm.gov.tw
+       </p>
+       <p>
+        英文表示型式：
+       </p>
+       <p>
+        ○○○○○ The National Palace Museum, Taipei, CC BY 4.0 @ www.npm.gov.tw
+       </p>
+       <p>
+        上述文物低階、中階圖像，均無需申請、不限用途、不用付費，可直接下載，公開使用，但不包括專利權及商標權。惟使用者使用開放資料之圖檔自行製作製成品時，應避免使他人誤會為係本院所製作之製成品。
+       </p>
+      </div>
+      <span>
+       ·
+      </span>
+      <a href="https://www.npm.gov.tw/Articles.aspx?sno=02000178&amp;l=1" rel="noopener noreferrer" target="_blank" title="移至隱私權宣告[另開新視窗]">
+       隱私權宣告
+      </a>
+      <span>
+       ·
+      </span>
+      <a href="https://www.npm.gov.tw/Articles.aspx?sno=02000179&amp;l=1" rel="noopener noreferrer" target="_blank" title="移至資訊安全政策[另開新視窗]">
+       資訊安全政策
+      </a>
+      <span>
+       ·
+      </span>
+      <a href="https://contactus.npm.gov.tw/Web/case-apply.jsp?l=1&amp;TArea=1" rel="noopener noreferrer" target="_blank" title="移至意見回饋[另開新視窗]">
+       意見回饋
+      </a>
+     </div>
+     <div class="footer-details2">
+      國立故宮博物院著作權所有 © 2024 NATIONAL PALACE MUSEUM. All Rights Reserved.
+     </div>
+    </div>
+    <div class="footer-bottom">
+     <span>
+      北院地址：111001臺北市士林區至善路二段221號 · 聯絡電話 : (02)2881-2021 南院地址：612008嘉義縣太保市故宮大道888號 · 聯絡電話：(05)3620-777
+     </span>
+     <!--<a href="https://accessibility.moda.gov.tw/Applications/Detail?category=20221205103551" title="無障礙網站">
+        <img src="~/Content/images/無障礙標章AA.png" width="130" alt="通過AA無障礙網頁檢測" />
+    </a>-->
+    </div>
+   </footer>
+   <!-- 側邊浮動選單 -->
+   <div class="sidebar-bar">
+    <button aria-controls="sidebar-more" aria-expanded="false" class="sidebar-btn" data-bs-target="#sidebar-more" data-bs-toggle="collapse" title="展開側邊浮動選單：字體縮放、分享、返回頂端" type="button">
+     <span class="material-icons-outlined">
+      more_vert
+     </span>
+    </button>
+    <div class="sidebar-more collapse" id="sidebar-more">
+     <button class="sidebar-btn" id="font-up" title="字體放大">
+      <span class="sidebar-title">
+       字體放大
+      </span>
+      <div class="material-icons-outlined">
+       text_increase
+      </div>
+     </button>
+     <button class="sidebar-btn" id="font-down" title="字體縮小">
+      <span class="sidebar-title">
+       字體縮小
+      </span>
+      <div class="material-icons-outlined">
+       text_decrease
+      </div>
+     </button>
+     <div class="sidebar-btn sidebar-share" role="button" tabindex="-1">
+      <span class="sidebar-title">
+       分享
+      </span>
+      <a class="sidebar-line" href="javascript: void(window.open('https://line.me/R/msg/text/?'.concat(encodeURIComponent(location.href)) ));" title="分享到LINE">
+       <span class="sr-only">
+        LINE
+       </span>
+      </a>
+      <a class="sidebar-facebook" href="javascript: void(window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href)));" title="分享到facebook">
+       <span class="sr-only">
+        facebook
+       </span>
+      </a>
+      <a class="sidebar-twitter" href="javascript: void(window.open('http://twitter.com/share?url='+encodeURIComponent(location.href)));" title="分享到 X (twitter)">
+       <span class="sr-only">
+        twitter
+       </span>
+      </a>
+      <div class="material-icons-outlined">
+       share
+      </div>
+     </div>
+     <a class="sidebar-btn" href="#" id="return-to-top" title="返回頂端">
+      <span class="sidebar-title">
+       返回頂端
+      </span>
+      <div class="material-icons-outlined">
+       keyboard_tab
+      </div>
+     </a>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

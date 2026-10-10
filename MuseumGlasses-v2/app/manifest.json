@@ -1,0 +1,9 @@
+{
+  "name": "观物 · 智慧导览",
+  "short_name": "观物导览",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4efe6",
+  "theme_color": "#f4efe6",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

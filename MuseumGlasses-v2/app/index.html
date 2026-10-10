@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4efe6">
+<link rel="manifest" href="manifest.json">
+<title>观物 · 智慧导览</title>
+<style>
+/* 不引用任何外部字体/CDN：博物馆内网、国内网络都能用 */
+:root{
+  --paper:#f4efe6; --card:#fffdf8; --ink:#1f1b16; --ink2:#6b6157; --line:#e3dacb;
+  --seal:#b23a2b; --seal-soft:#f3dcd6; --jade:#3d7a66; --jade-soft:#dcebe4;
+  --serif:"Songti SC","STSong","Noto Serif CJK SC","Source Han Serif SC","SimSun",serif;
+  --sans:-apple-system,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root{
+  --paper:#16130f; --card:#211d18; --ink:#efe8dc; --ink2:#a79d90; --line:#3a332b;
+  --seal:#d8604f; --seal-soft:#3d2420; --jade:#6fb39b; --jade-soft:#1f322b;}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans)}
+body{padding:env(safe-area-inset-top) 16px calc(150px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto}
+header{display:flex;align-items:center;justify-content:space-between;padding:18px 0 10px}
+.brand{display:flex;align-items:center;gap:10px}
+.seal{width:34px;height:34px;border-radius:6px;background:var(--seal);color:#fff;font-family:var(--serif);
+  display:grid;place-items:center;font-size:17px;font-weight:700;letter-spacing:-1px}
+.brand h1{font-family:var(--serif);font-size:20px;margin:0;font-weight:700}
+.brand small{display:block;color:var(--ink2);font-size:11px;letter-spacing:.15em}
+.status{display:flex;flex-direction:column;align-items:flex-end;gap:3px;font-size:12px;color:var(--ink2)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#aaa;margin-right:5px;vertical-align:1px}
+.dot.on{background:var(--jade)} .dot.off{background:var(--seal)}
+h2{font-family:var(--serif);font-size:15px;margin:22px 0 10px;font-weight:700;display:flex;justify-content:space-between;align-items:baseline}
+h2 span{font-family:var(--sans);font-weight:400;font-size:12px;color:var(--ink2)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;
+  padding:8px 15px;font-size:14px;font-family:inherit}
+.chip.sel{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.now{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;gap:14px;align-items:center}
+.now img{width:72px;height:72px;object-fit:cover;border-radius:10px;background:var(--line)}
+.now .ph{width:72px;height:72px;border-radius:10px;border:1.5px dashed var(--line);display:grid;place-items:center;color:var(--ink2);font-size:26px}
+.now .name{font-family:var(--serif);font-size:18px;font-weight:700}
+.now .sub{color:var(--ink2);font-size:13px;margin-top:4px}
+.row{display:flex;gap:8px;margin-top:10px}
+.btn{flex:1;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:11px;font-size:14px;font-family:inherit}
+.btn:active{transform:scale(.98)}
+.feed{display:flex;flex-direction:column;gap:12px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;animation:in .3s ease}
+@keyframes in{from{opacity:0;transform:translateY(6px)}}
+.item .top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--ink2)}
+.tag{border-radius:4px;padding:2px 7px;font-size:11px;margin-right:6px}
+.tag.g{background:var(--jade-soft);color:var(--jade)} .tag.p{background:var(--seal-soft);color:var(--seal)}
+.item .art{font-family:var(--serif);font-size:16px;font-weight:700;margin:8px 0 4px;display:flex;gap:10px;align-items:center}
+.item .art img{width:40px;height:40px;border-radius:8px;object-fit:cover}
+.item .q{font-size:13px;color:var(--ink2);margin:6px 0}
+.item .q::before{content:"问 ";color:var(--seal);font-weight:700}
+.item .a{font-size:15px;line-height:1.7}
+.item .warn{color:var(--seal)}
+.play{border:none;background:none;color:var(--seal);font-size:13px;padding:4px 0;font-family:inherit}
+.empty{text-align:center;color:var(--ink2);font-size:13px;padding:30px 0;border:1.5px dashed var(--line);border-radius:14px}
+/* 底部操作栏 */
+.dock{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.dock .in{max-width:560px;margin:0 auto}
+.ask{display:flex;gap:8px;margin-bottom:10px}
+.ask input{flex:1;min-width:0;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:12px;font-size:15px;font-family:inherit}
+.ask button{border:none;background:var(--ink);color:var(--paper);border-radius:12px;padding:0 16px;font-size:15px;font-family:inherit}
+.acts{display:flex;gap:10px}
+.big{flex:1;border:none;border-radius:14px;padding:14px;font-size:16px;font-weight:600;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px}
+.cam{background:var(--seal);color:#fff}
+.mic{background:var(--card);color:var(--ink);border:1px solid var(--line);user-select:none;-webkit-user-select:none;touch-action:none}
+.mic.rec{background:var(--seal-soft);border-color:var(--seal);color:var(--seal)}
+.mic[disabled]{opacity:.45}
+.busy{position:fixed;inset:0;background:rgba(0,0,0,.25);display:none;place-items:center;z-index:9}
+.busy.show{display:grid}
+.busy div{background:var(--card);border-radius:14px;padding:18px 24px;font-size:14px;display:flex;gap:10px;align-items:center}
+.spin{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--seal);border-radius:50%;animation:sp 0.8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+details{margin-top:24px;font-size:13px;color:var(--ink2)}
+details input{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:9px;margin:6px 0 10px;font-size:14px}
+label.sw{display:flex;justify-content:space-between;align-items:center;margin:8px 0}
+.guess{margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.guess button{border:none;background:var(--jade);color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;font-family:inherit}
+.tm{font-size:11px;color:var(--ink2);margin-top:6px}
+.pick{display:none;margin-top:10px}
+.pick.show{display:block}
+.pick input{width:100%;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:10px;font-size:15px;font-family:inherit}
+.plist{max-height:260px;overflow:auto;margin-top:6px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.plist div{padding:10px 12px;border-bottom:1px solid var(--line);font-size:14px;display:flex;justify-content:space-between}
+.plist div:last-child{border:none}
+.plist small{color:var(--jade)}
+.hint{font-size:12px;color:var(--ink2);line-height:1.6;margin:2px 0 12px}
+.toast{position:fixed;left:50%;top:20px;transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:10px;font-size:13px;z-index:10;display:none;max-width:90%}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="seal">观物</div><div><h1>智慧导览</h1><small>MUSEUM GLASSES</small></div></div>
+  <div class="status">
+    <div><span class="dot" id="srvDot"></span><span id="srvTxt">连接中</span></div>
+    <div title="眼镜接好并运行客户端后会变绿"><span class="dot" id="devDot"></span><span id="devTxt">眼镜未连接</span></div>
+  </div>
+</header>
+
+<h2>讲解人设 <span>眼镜和手机同步</span></h2>
+<div class="chips" id="personas"></div>
+
+<h2>当前展品</h2>
+<div class="now" id="now">
+  <div class="ph">◎</div>
+  <div><div class="name">尚未识别</div><div class="sub">用眼镜看向展品按一下键，或用下方「拍展品」</div></div>
+</div>
+<div class="row">
+  <button class="btn" id="pickBtn">手动选择展品</button>
+  <button class="btn" id="remoteCap">让眼镜拍一张</button>
+  <button class="btn" id="replay">重播</button>
+</div>
+<div class="pick" id="pick">
+  <input id="pickQ" placeholder="搜索展品名，例如：笔筒、牧童" autocomplete="off">
+  <div class="plist" id="plist"></div>
+</div>
+
+<h2>讲解记录 <span id="count"></span></h2>
+<div class="feed" id="feed"><div class="empty">还没有讲解记录</div></div>
+
+<details>
+  <summary>设置</summary>
+  <label class="sw" style="margin-top:12px">眼镜讲解时，手机也一起出声 <input type="checkbox" id="mirror" style="width:auto"></label>
+  <div class="hint">眼镜和手机看到的是同一份讲解，文字总是同步的。眼镜自己有喇叭会念出来，所以默认手机不再出声，免得两边同时响；眼镜没声音或想用手机外放时再打开。</div>
+  <div>眼镜编号</div>
+  <input id="devId" placeholder="glasses-01">
+  <div class="hint">手机控制的是哪一副眼镜（人设、远程拍照都发给它）。只有一副眼镜就保持 glasses-01。</div>
+  <div>服务器地址（一般留空）</div>
+  <input id="srvUrl" placeholder="留空 = 就是当前这个网页的地址">
+  <div class="hint">只有把这个页面单独存到手机上打开时才需要填，例如 https://192.168.1.10:8443</div>
+  <button class="btn" id="saveCfg" style="width:100%">保存</button>
+</details>
+
+<div class="dock"><div class="in">
+  <form class="ask" id="askForm">
+    <input id="q" placeholder="对当前展品提问，例如：用了什么工艺？" autocomplete="off">
+    <button>问</button>
+  </form>
+  <div class="acts">
+    <button class="big cam" id="camBtn">📷 拍展品</button>
+    <button class="big mic" id="micBtn">🎤 按住提问</button>
+  </div>
+</div></div>
+<input type="file" accept="image/*" capture="environment" id="file" hidden>
+
+<div class="busy" id="busy"><div><span class="spin"></span><span id="busyTxt">讲解生成中…</span></div></div>
+<div class="toast" id="toast"></div>
+<audio id="player" preload="none"></audio>
+
+<script>
+const $ = s => document.querySelector(s);
+const store = {
+  get(k, d){ try{ return localStorage.getItem(k) ?? d }catch(e){ return d } },
+  set(k, v){ try{ localStorage.setItem(k, v) }catch(e){} }
+};
+let SRV = store.get("srv", "") || location.origin;
+let DEV = store.get("dev", "") || "glasses-01";
+let mirror = store.get("mirror", "0") === "1";
+let persona = "expert", items = [], ws = null, lastAudio = null;
+
+const api = (p, opt) => fetch(SRV.replace(/\/$/, "") + p, opt).then(async r => {
+  if(!r.ok) throw new Error((await r.json().catch(()=>({}))).detail || r.status);
+  return r.json();
+});
+const abs = u => u ? SRV.replace(/\/$/, "") + u : u;
+function toast(t){ const e=$("#toast"); e.textContent=t; e.style.display="block"; clearTimeout(e._t); e._t=setTimeout(()=>e.style.display="none",2600) }
+function busy(on, t){ $("#busy").classList.toggle("show", on); if(t) $("#busyTxt").textContent=t }
+function esc(s){ return (s??"").replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])) }
+function play(url){ if(!url) return; const p=$("#player"); p.src=abs(url); p.play().catch(()=>{}); lastAudio=url }
+
+/* ── 人设 ── */
+async function loadPersonas(){
+  const [list, s] = await Promise.all([api("/api/personas"), api("/api/settings?device_id="+encodeURIComponent(DEV))]);
+  persona = s.persona;
+  $("#personas").innerHTML = list.map(p => `<button class="chip ${p.key===persona?"sel":""}" data-k="${p.key}">${esc(p.name_zh)}</button>`).join("");
+}
+$("#personas").onclick = async e => {
+  const k = e.target.dataset.k; if(!k) return;
+  persona = k;
+  document.querySelectorAll(".chip").forEach(c => c.classList.toggle("sel", c.dataset.k===k));
+  try{ await api("/api/settings", {method:"PUT", headers:{"content-type":"application/json"}, body:JSON.stringify({device_id:DEV, persona:k})}); toast("已切换为「"+e.target.textContent+"」") }
+  catch(err){ toast("切换失败："+err.message) }
+};
+
+/* ── 渲染 ── */
+function render(){
+  $("#count").textContent = items.length ? items.length+" 条" : "";
+  if(!items.length){ $("#feed").innerHTML = `<div class="empty">还没有讲解记录</div>`; return }
+  $("#feed").innerHTML = items.map(it => `
+    <div class="item">
+      <div class="top"><div><span class="tag ${it.source==="phone"?"p":"g"}">${it.source==="phone"?"手机":"眼镜"}</span>${esc(it.persona_zh)} · ${it.time}</div>
+        <div>${it.timing?.total!=null ? it.timing.total+"s" : ""}</div></div>
+      ${it.artifact_name ? `<div class="art">${it.image_url?`<img src="${abs(it.image_url)}" loading="lazy">`:""}${esc(it.artifact_display||it.artifact_name)}</div>` : ""}
+      ${it.question ? `<div class="q">${esc(it.question)}</div>` : ""}
+      <div class="a ${it.status!=="ok"?"warn":""}">${esc(it.answer)}</div>
+      ${it.status==="uncertain" ? `<div class="guess">${it.image_url?`<img src="${abs(it.image_url)}" style="width:40px;height:40px;border-radius:8px;object-fit:cover">`:""}
+          <span>可能是「${esc(it.guess_display)}」</span><button data-pick="${esc(it.guess)}">就是它</button></div>` : ""}
+      <button class="play" data-a="${it.audio_url}">▶ 播放讲解</button>
+      ${tm(it.timing)}
+    </div>`).join("");
+  const cur = items.find(i => i.artifact_name && i.device_id===DEV);
+  if(cur){
+    // 追问时没有新照片，沿用这件文物最近一次拍到的照片
+    const shot = items.find(i => i.artifact_name===cur.artifact_name && i.image_url);
+    $("#now").innerHTML = `${shot?`<img src="${abs(shot.image_url)}">`:`<div class="ph">◎</div>`}
+      <div><div class="name">${esc(cur.artifact_display||cur.artifact_name)}</div><div class="sub">${cur.confidence!=null?"识别置信度 "+Math.round(cur.confidence*100)+"% · ":""}可直接在下方追问</div></div>`;
+  }
+}
+$("#feed").onclick = e => {
+  const a = e.target.dataset.a; if(a) play(a);
+  const p = e.target.dataset.pick; if(p) chooseArtifact(p);
+};
+function tm(t){
+  if(!t) return "";
+  const n = {recognize:"识别", asr:"听写", llm:"生成", tts:"语音"};
+  const parts = Object.keys(n).filter(k => t[k]!=null).map(k => n[k]+" "+t[k]+"s");
+  return parts.length ? `<div class="tm">${parts.join(" · ")}</div>` : "";
+}
+
+/* ── 手动选择展品 ── */
+let artifacts = null;
+$("#pickBtn").onclick = async () => {
+  $("#pick").classList.toggle("show");
+  if(!artifacts){ try{ artifacts = await api("/api/artifacts") }catch(e){ artifacts = [] } }
+  drawPick(); $("#pickQ").focus();
+};
+$("#pickQ").oninput = drawPick;
+function drawPick(){
+  const q = $("#pickQ").value.trim();
+  const list = (artifacts||[]).filter(a => !q || a.display.includes(q) || a.name.includes(q))
+    .sort((a,b) => b.has_image - a.has_image).slice(0, 60);
+  $("#plist").innerHTML = list.map(a => `<div data-pick="${esc(a.name)}">${esc(a.display)}${a.has_image?"<small>可拍照识别</small>":""}</div>`).join("")
+    || `<div>没有找到</div>`;
+}
+$("#plist").onclick = e => { const p = e.target.closest("[data-pick]")?.dataset.pick; if(p){ $("#pick").classList.remove("show"); chooseArtifact(p) } };
+function chooseArtifact(name){
+  const fd = new FormData(); fd.append("artifact_name", name); ask(fd, "生成讲解中…");
+}
+$("#replay").onclick = () => lastAudio ? play(lastAudio) : toast("还没有讲解");
+
+/* ── 实时连接（眼镜的问答会推送到这里） ── */
+function connect(){
+  try{ ws && ws.close() }catch(e){}
+  const u = SRV.replace(/^http/, "ws").replace(/\/$/, "") + "/ws";
+  ws = new WebSocket(u);
+  ws.onopen = () => { $("#srvDot").className="dot on"; $("#srvTxt").textContent="服务器已连接" };
+  ws.onclose = () => { $("#srvDot").className="dot off"; $("#srvTxt").textContent="服务器断开"; setTimeout(connect, 3000) };
+  ws.onmessage = ev => {
+    const m = JSON.parse(ev.data);
+    if(m.type==="hello"){ items = m.history; render(); (m.devices||[]).forEach(showDev) }
+    if(m.type==="ask_result"){
+      items.unshift(m.item); items = items.slice(0, 50); render();
+      if(m.item.source==="glasses" && mirror) play(m.item.audio_url);
+      if(m.item.audio_url) lastAudio = m.item.audio_url;
+    }
+    if(m.type==="device") showDev(m.device);
+  };
+}
+function showDev(d){
+  if(d.device_id!==DEV) return;
+  $("#devDot").className = "dot " + (d.online?"on":"off");
+  $("#devTxt").textContent = d.online ? ("眼镜在线" + (d.battery!=null?` · ${d.battery}%`:"")) : "眼镜未连接";
+  if(d.persona && d.persona!==persona){ persona=d.persona; document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("sel", c.dataset.k===persona)) }
+}
+setInterval(async () => { try{ (await api("/api/devices")).forEach(showDev) }catch(e){} }, 10000);
+
+/* ── 提问（手机端） ── */
+async function ask(fd, label){
+  fd.append("device_id", DEV); fd.append("persona", persona); fd.append("source", "phone");
+  busy(true, label);
+  try{
+    const r = await api("/api/ask", {method:"POST", body:fd});
+    play(r.audio_url);       // WebSocket 也会推送这条，列表在那边更新
+    if(r.status!=="ok") toast(r.answer);
+  }catch(e){ toast("出错了："+e.message) }
+  finally{ busy(false) }
+}
+$("#askForm").onsubmit = e => {
+  e.preventDefault(); const q = $("#q").value.trim(); if(!q) return;
+  const fd = new FormData(); fd.append("question", q); $("#q").value=""; ask(fd, "思考中…");
+};
+$("#camBtn").onclick = () => $("#file").click();
+$("#file").onchange = async e => {
+  const f = e.target.files[0]; e.target.value=""; if(!f) return;
+  const fd = new FormData(); fd.append("image", await shrink(f), "photo.jpg");
+  const q = $("#q").value.trim(); if(q){ fd.append("question", q); $("#q").value="" }
+  ask(fd, "识别展品中…");
+};
+// 手机照片动辄 5MB，先缩到 1024px 再传，识别效果一样、快很多
+function shrink(file){ return new Promise(res => {
+  const img = new Image(); img.onload = () => {
+    const s = Math.min(1, 1024/Math.max(img.width, img.height));
+    const c = document.createElement("canvas"); c.width=img.width*s; c.height=img.height*s;
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    c.toBlob(b => res(b || file), "image/jpeg", 0.85); URL.revokeObjectURL(img.src);
+  }; img.onerror = () => res(file); img.src = URL.createObjectURL(file);
+})}
+$("#remoteCap").onclick = async () => {
+  try{ await api("/api/device/command", {method:"POST", headers:{"content-type":"application/json"}, body:JSON.stringify({device_id:DEV, command:"capture"})}); toast("已通知眼镜拍照（下次心跳时执行）") }
+  catch(e){ toast("发送失败："+e.message) }
+};
+
+/* ── 按住说话 ── */
+const mic = $("#micBtn"); let rec = null, chunks = [], t0 = 0;
+const needHttps = !(navigator.mediaDevices && window.MediaRecorder);
+if(needHttps){
+  // 浏览器规定只有 HTTPS（或 localhost）页面才能用麦克风 → 跳到同一台电脑的 8443 端口
+  mic.textContent = "🎤 开启语音";
+  mic.onclick = () => {
+    if(confirm("语音提问需要切换到安全连接（https）。\n\n打开后如果提示「不安全/隐私设置错误」，点「高级 → 继续访问」即可（这是你自己电脑的证书）。\n\n现在切换吗？"))
+      location.href = "https://" + location.hostname + ":8443/app/";
+  };
+}
+async function startRec(e){
+  if(needHttps) return;
+  e.preventDefault(); if(rec) return;
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    rec = new MediaRecorder(stream); chunks = []; t0 = Date.now();
+    rec.ondataavailable = ev => chunks.push(ev.data);
+    rec.onstop = () => {
+      stream.getTracks().forEach(t => t.stop());
+      const type = rec.mimeType || "audio/webm"; rec = null;
+      mic.classList.remove("rec"); mic.textContent = "🎤 按住提问";
+      if(Date.now()-t0 < 600){ toast("说话时间太短"); return }
+      const ext = type.includes("mp4") ? "m4a" : type.includes("ogg") ? "ogg" : "webm";
+      const fd = new FormData(); fd.append("audio", new Blob(chunks, {type}), "q."+ext);
+      ask(fd, "听懂你的问题中…");
+    };
+    rec.start(); mic.classList.add("rec"); mic.textContent = "松开发送";
+  }catch(err){ toast("无法使用麦克风："+err.message) }
+}
+function stopRec(e){ if(needHttps) return; e.preventDefault(); if(rec && rec.state==="recording") rec.stop() }
+mic.addEventListener("pointerdown", startRec);
+["pointerup","pointerleave","pointercancel"].forEach(ev => mic.addEventListener(ev, stopRec));
+
+/* ── 设置 ── */
+$("#srvUrl").value = store.get("srv", ""); $("#devId").value = DEV; $("#mirror").checked = mirror;
+$("#saveCfg").onclick = () => {
+  store.set("srv", $("#srvUrl").value.trim()); store.set("dev", $("#devId").value.trim() || "glasses-01");
+  store.set("mirror", $("#mirror").checked ? "1" : "0"); location.reload();
+};
+
+loadPersonas().catch(e => toast("连不上服务器："+e.message));
+connect();
+</script>
+</body>
+</html>

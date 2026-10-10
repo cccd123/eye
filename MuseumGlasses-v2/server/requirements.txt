@@ -1,0 +1,18 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pillow
+edge-tts
+langchain-huggingface
+langchain-chroma
+chromadb
+transformers
+torch
+llama-cpp-python
+sentence-transformers
+# 新增：语音提问（语音 → 文字）
+faster-whisper
+# 新增：把 mp3 转成眼镜好播放的 wav（自带 ffmpeg.exe，不用另装）
+imageio-ffmpeg
+cryptography
+zhconv

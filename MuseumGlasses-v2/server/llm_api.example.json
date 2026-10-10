@@ -1,0 +1,6 @@
+{
+  "说明": "想用在线大模型就把本文件复制一份改名为 llm_api.json，填上 api_key。删掉 llm_api.json 就回到本地 Qwen。",
+  "base_url": "https://api.deepseek.com",
+  "api_key": "sk-在这里填你的key",
+  "model": "deepseek-chat"
+}

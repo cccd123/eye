@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# 运行时生成
+server/audio_cache/
+server/captures/
+test_output/
+
+# 模型权重太大（GitHub 单文件上限 100MB），只在本地保留
+models/**/*.bin
+models/**/*.safetensors
+models/**/*.gguf
+models/**/*.onnx
+models/**/*.onnx_data
+models/**/*.h5
+models/**/*.msgpack
+models/**/*.pt
+
+# 调试输出
+glasses/probe_result.txt
+server/python_path.txt
+server/llm_api.json
+server/certs/

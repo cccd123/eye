@@ -2,3 +2,5 @@
 models/qwen3-1.7b/
 models/bge-m3/pytorch_model.bin
 models/bge-m3/onnx/model.onnx_data
+models/bge-m3/pytorch_model.bin
+models/bge-m3/onnx/model.onnx_data
